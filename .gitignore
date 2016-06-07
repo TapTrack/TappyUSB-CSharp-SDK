@@ -6,15 +6,10 @@
 *.user
 *.userosscache
 *.sln.docstates
+App.config
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-Properties/
-Resources/
-TapTrack.TappyUSB/
-*.csproj
-TappyUSB SDK.sln
-App.config
 
 # Build results
 [Dd]ebug/
