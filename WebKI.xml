@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpKI>
+  <HelpKINode Title="AbsoluteUri enumeration member" Url="html/31b76514-eead-695a-a894-01a0415b9562.htm" />
+  <HelpKINode Title="AppErrorLookUp method" Url="html/581273a2-eaf2-9221-8a5d-7ce035b0bcec.htm" />
+  <HelpKINode Title="Application enumeration member" Url="html/94bf2a6b-6bd4-30d7-650f-432161767e42.htm" />
+  <HelpKINode Title="AutoDetect method" Url="html/682070ec-bcdd-02f8-fc38-e35269113d5d.htm" />
+  <HelpKINode Title="BYTE_LOOKUP field" Url="html/8dcfee38-51b2-1412-ddf4-89a58dfda0c4.htm" />
+  <HelpKINode Title="CalDcs method" Url="html/7cdfddd5-b3f9-352a-44c1-a6d2cb0c6e2d.htm" />
+  <HelpKINode Title="CalLcs method" Url="html/dd41f419-887a-f469-63d5-53303056888e.htm" />
+  <HelpKINode Title="Clear method" Url="html/c0b1966c-15df-85d1-60d3-527e65d3a86f.htm" />
+  <HelpKINode Title="Close method" Url="html/ebaaa481-2ddd-253d-bb80-8890442f837f.htm" />
+  <HelpKINode Title="Connect method" Url="html/dcc256ee-b120-f63d-c1b9-928c45e434be.htm" />
+  <HelpKINode Title="Construct method" Url="html/db0421df-fc34-fe7e-46bd-3af02ee3376f.htm" />
+  <HelpKINode Title="ConstructCommand method" Url="html/4a773f0b-14a5-8781-2b74-ee177019bb01.htm" />
+  <HelpKINode Title="ContentType enumeration" Url="html/d1845727-f1cf-eb88-0773-0129557ac6e7.htm" />
+  <HelpKINode Title="DataCount property" Url="html/bf6c0716-6fe6-e446-b495-54569060b0ee.htm" />
+  <HelpKINode Title="Dcs enumeration member" Url="html/94bf2a6b-6bd4-30d7-650f-432161767e42.htm" />
+  <HelpKINode Title="Dcs property" Url="html/7ad925bd-02bf-6062-6046-870069a7d231.htm" />
+  <HelpKINode Title="DcsError method" Url="html/1c7342a6-3bfb-275d-c0b7-b12db8fbbcfa.htm" />
+  <HelpKINode Title="DetectTypeB method" Url="html/2318e15a-f62d-26c0-5cd0-a58c2c153645.htm" />
+  <HelpKINode Title="Driver class">
+    <HelpKINode Title="Driver Class" Url="html/6945577e-1c98-c0d4-1e84-5d76c12f433b.htm" />
+    <HelpKINode Title="about Driver class" Url="html/6945577e-1c98-c0d4-1e84-5d76c12f433b.htm" />
+    <HelpKINode Title="constructor" Url="html/9e314c2e-8967-e720-67ba-b0b2d29db5f8.htm" />
+    <HelpKINode Title="methods" Url="html/50a9d01c-4ead-5f04-a874-241d1657aba1.htm" />
+    <HelpKINode Title="properties" Url="html/d9b613d5-45b1-6cb3-4e3f-c36aab26bc11.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Driver.AppErrorLookUp method" Url="html/581273a2-eaf2-9221-8a5d-7ce035b0bcec.htm" />
+  <HelpKINode Title="Driver.AutoDetect method" Url="html/682070ec-bcdd-02f8-fc38-e35269113d5d.htm" />
+  <HelpKINode Title="Driver.Callback delegate" Url="html/9da8e0b1-ded9-b86c-c3a4-81f31ca8d281.htm" />
+  <HelpKINode Title="Driver.CallbackError delegate" Url="html/43564255-7374-5853-dfc3-f4eeea435966.htm" />
+  <HelpKINode Title="Driver.Clear method" Url="html/c0b1966c-15df-85d1-60d3-527e65d3a86f.htm" />
+  <HelpKINode Title="Driver.Close method" Url="html/ebaaa481-2ddd-253d-bb80-8890442f837f.htm" />
+  <HelpKINode Title="Driver.Connect method" Url="html/dcc256ee-b120-f63d-c1b9-928c45e434be.htm" />
+  <HelpKINode Title="Driver.DetectTypeB method" Url="html/2318e15a-f62d-26c0-5cd0-a58c2c153645.htm" />
+  <HelpKINode Title="Driver.Driver constructor" Url="html/9e314c2e-8967-e720-67ba-b0b2d29db5f8.htm" />
+  <HelpKINode Title="Driver.LockCard method" Url="html/904beacc-445d-fe23-1904-0ebd69b48dd2.htm" />
+  <HelpKINode Title="Driver.Ping method" Url="html/222036f1-fba7-6b03-7f7c-dc3bbede0201.htm" />
+  <HelpKINode Title="Driver.PortName property" Url="html/d34235fb-700f-d246-94f8-0424f959d6f8.htm" />
+  <HelpKINode Title="Driver.ReadUID method" Url="html/01c62086-fa9a-77f7-3f0f-4b133a52d240.htm" />
+  <HelpKINode Title="Driver.Stop method" Url="html/2ab70741-81e9-0218-d491-98f352782a2b.htm" />
+  <HelpKINode Title="Driver.Transceive method" Url="html/63be565f-a256-e6be-33e2-95771547a40c.htm" />
+  <HelpKINode Title="Driver.WriteBlock method" Url="html/fb09be20-15de-262d-e267-3bea0662e0db.htm" />
+  <HelpKINode Title="Driver.WriteContentToTag method" Url="html/dbbfe51d-71bc-f478-55a1-8bfaf3443dde.htm" />
+  <HelpKINode Title="Driver.WriteContentToTagMultTimes method" Url="html/ddc1f6da-7062-513c-35df-bb8d6040f9b1.htm" />
+  <HelpKINode Title="Driver.WriteNdef method" Url="html/73a5c86b-0caa-e79d-9e38-69b9a6373d3e.htm" />
+  <HelpKINode Title="Driver.WriteNdefMultTimes method" Url="html/2e6a1862-b4ad-e95b-1bf9-01c3335fdc48.htm" />
+  <HelpKINode Title="Driver.WriteVCard method" Url="html/22504bdf-11fd-a831-d912-0dfe158d3a2e.htm" />
+  <HelpKINode Title="Empty enumeration member">
+    <HelpKINode Title="ContentType Enumeration" Url="html/d1845727-f1cf-eb88-0773-0129557ac6e7.htm" />
+    <HelpKINode Title="TypeNameField Enumeration" Url="html/31b76514-eead-695a-a894-01a0415b9562.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Frame class">
+    <HelpKINode Title="Frame Class" Url="html/cc25582d-a7a9-5bf4-cae3-aef3482fe503.htm" />
+    <HelpKINode Title="about Frame class" Url="html/cc25582d-a7a9-5bf4-cae3-aef3482fe503.htm" />
+    <HelpKINode Title="methods" Url="html/a89bb156-9181-027c-eb1c-0a1459b4a08d.htm" />
+    <HelpKINode Title="properties" Url="html/52b04bac-ee21-427a-516f-82aa161f1e82.htm" />
+    <HelpKINode Title="type conversions" Url="html/05d84871-986d-d006-1de4-13f50db52d69.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Frame to Byte() conversion" Url="html/dcba5346-f003-9f3c-8bed-6c103fb6449e.htm" />
+  <HelpKINode Title="Frame to Byte[] conversion" Url="html/dcba5346-f003-9f3c-8bed-6c103fb6449e.htm" />
+  <HelpKINode Title="Frame.CalDcs method" Url="html/7cdfddd5-b3f9-352a-44c1-a6d2cb0c6e2d.htm" />
+  <HelpKINode Title="Frame.CalLcs method" Url="html/dd41f419-887a-f469-63d5-53303056888e.htm" />
+  <HelpKINode Title="Frame.Construct method" Url="html/db0421df-fc34-fe7e-46bd-3af02ee3376f.htm" />
+  <HelpKINode Title="Frame.ConstructCommand method" Url="html/4a773f0b-14a5-8781-2b74-ee177019bb01.htm" />
+  <HelpKINode Title="Frame.DataCount property" Url="html/bf6c0716-6fe6-e446-b495-54569060b0ee.htm" />
+  <HelpKINode Title="Frame.Dcs property" Url="html/7ad925bd-02bf-6062-6046-870069a7d231.htm" />
+  <HelpKINode Title="Frame.DcsError method" Url="html/1c7342a6-3bfb-275d-c0b7-b12db8fbbcfa.htm" />
+  <HelpKINode Title="Frame.GetData method" Url="html/58b9ea21-3430-5d40-6459-38996a1f89da.htm" />
+  <HelpKINode Title="Frame.IsACK method" Url="html/5f113dbd-4967-0f57-7a40-3cf8c652b979.htm" />
+  <HelpKINode Title="Frame.IsAppError method" Url="html/dde58679-02da-5411-7bfa-8403fd00676d.htm" />
+  <HelpKINode Title="Frame.IsNACK method" Url="html/5121961b-7d28-4d89-a21e-fe22790f7c61.htm" />
+  <HelpKINode Title="Frame.isValidFrame method" Url="html/1ea8e264-e8b3-083d-0d44-44b595a7c7ce.htm" />
+  <HelpKINode Title="Frame.Lcs property" Url="html/bbd005c8-dd99-e7d4-7492-05bc4bcf003f.htm" />
+  <HelpKINode Title="Frame.LcsError method" Url="html/7f976082-b1a8-b01b-fbac-0fb7ce4b9216.htm" />
+  <HelpKINode Title="Frame.Length property" Url="html/818a0c74-8dc5-6e4a-111e-0ab18077f3f8.htm" />
+  <HelpKINode Title="Frame.LenL property" Url="html/d758e622-2c23-08dc-8220-4b1d135d2dd7.htm" />
+  <HelpKINode Title="Frame.LenM property" Url="html/dc06cdc6-4779-17ad-7469-434c271b0306.htm" />
+  <HelpKINode Title="Frame._Construct method" Url="html/c9d40538-5be7-18bb-062f-23346730c336.htm" />
+  <HelpKINode Title="GetByteArray method">
+    <HelpKINode Title="Header.GetByteArray Method " Url="html/af05d885-0784-49d9-f1a0-22ebdd2b9d60.htm" />
+    <HelpKINode Title="NdefMessage.GetByteArray Method " Url="html/88e43d46-a8ae-5460-a0dc-0641057f3157.htm" />
+    <HelpKINode Title="Record.GetByteArray Method " Url="html/ac3fe694-3782-9a90-3abf-bae8adee6d07.htm" />
+    <HelpKINode Title="RecordPayload.GetByteArray Method " Url="html/eec49218-22d5-22df-cb66-0bbc66ddbcc1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="GetCode method" Url="html/435f4ca5-251a-1c13-063f-8645152b3d96.htm" />
+  <HelpKINode Title="GetData method" Url="html/58b9ea21-3430-5d40-6459-38996a1f89da.htm" />
+  <HelpKINode Title="GetPayLoad method" Url="html/5ba89325-e7a9-1500-1d05-49f17aceb5be.htm" />
+  <HelpKINode Title="GetTag method" Url="html/79229abf-457f-1fe0-e7f9-c4a7c18472b4.htm" />
+  <HelpKINode Title="Hardware enumeration member" Url="html/94bf2a6b-6bd4-30d7-650f-432161767e42.htm" />
+  <HelpKINode Title="Header class">
+    <HelpKINode Title="Header Class" Url="html/f3201cc4-d67c-c4dc-57a4-cf5f25f7639a.htm" />
+    <HelpKINode Title="about Header class" Url="html/f3201cc4-d67c-c4dc-57a4-cf5f25f7639a.htm" />
+    <HelpKINode Title="constructor" Url="html/823eeb8f-80f4-4970-e83e-82d2f4eeae33.htm" />
+    <HelpKINode Title="methods" Url="html/fccacb55-6f5f-7f81-403a-c5b3dc60dfda.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Header.GetByteArray method" Url="html/af05d885-0784-49d9-f1a0-22ebdd2b9d60.htm" />
+  <HelpKINode Title="Header.Header constructor" Url="html/823eeb8f-80f4-4970-e83e-82d2f4eeae33.htm" />
+  <HelpKINode Title="IsACK method" Url="html/5f113dbd-4967-0f57-7a40-3cf8c652b979.htm" />
+  <HelpKINode Title="IsAppError method" Url="html/dde58679-02da-5411-7bfa-8403fd00676d.htm" />
+  <HelpKINode Title="IsNACK method" Url="html/5121961b-7d28-4d89-a21e-fe22790f7c61.htm" />
+  <HelpKINode Title="IsShort method" Url="html/0f0a9a6b-2257-9951-6dbf-b211659f10fd.htm" />
+  <HelpKINode Title="isValidFrame method" Url="html/1ea8e264-e8b3-083d-0d44-44b595a7c7ce.htm" />
+  <HelpKINode Title="Lcs enumeration member" Url="html/94bf2a6b-6bd4-30d7-650f-432161767e42.htm" />
+  <HelpKINode Title="Lcs property" Url="html/bbd005c8-dd99-e7d4-7492-05bc4bcf003f.htm" />
+  <HelpKINode Title="LcsError method" Url="html/7f976082-b1a8-b01b-fbac-0fb7ce4b9216.htm" />
+  <HelpKINode Title="Length property">
+    <HelpKINode Title="Frame.Length Property " Url="html/818a0c74-8dc5-6e4a-111e-0ab18077f3f8.htm" />
+    <HelpKINode Title="RecordPayload.Length Property " Url="html/66b06fc4-1860-8682-4510-1fc32920cd10.htm" />
+    <HelpKINode Title="Tag.Length Property " Url="html/d8060ffb-bb7b-5348-b1fa-f47259bdcc20.htm" />
+  </HelpKINode>
+  <HelpKINode Title="LenL property" Url="html/d758e622-2c23-08dc-8220-4b1d135d2dd7.htm" />
+  <HelpKINode Title="LenM property" Url="html/dc06cdc6-4779-17ad-7469-434c271b0306.htm" />
+  <HelpKINode Title="LockCard method" Url="html/904beacc-445d-fe23-1904-0ebd69b48dd2.htm" />
+  <HelpKINode Title="Media enumeration member" Url="html/31b76514-eead-695a-a894-01a0415b9562.htm" />
+  <HelpKINode Title="Nack enumeration member" Url="html/94bf2a6b-6bd4-30d7-650f-432161767e42.htm" />
+  <HelpKINode Title="NdefMessage class">
+    <HelpKINode Title="NdefMessage Class" Url="html/2726de43-566f-5088-3102-b64ce35f0d22.htm" />
+    <HelpKINode Title="about NdefMessage class" Url="html/2726de43-566f-5088-3102-b64ce35f0d22.htm" />
+    <HelpKINode Title="constructor" Url="html/52fa1ce3-b8a7-a353-0ac1-0c7418c4e5c3.htm" />
+    <HelpKINode Title="methods" Url="html/1e1f4790-151f-fb68-d27c-0344b17adeca.htm" />
+  </HelpKINode>
+  <HelpKINode Title="NdefMessage.GetByteArray method" Url="html/88e43d46-a8ae-5460-a0dc-0641057f3157.htm" />
+  <HelpKINode Title="NdefMessage.NdefMessage constructor" Url="html/52fa1ce3-b8a7-a353-0ac1-0c7418c4e5c3.htm" />
+  <HelpKINode Title="NdefParser class">
+    <HelpKINode Title="NdefParser Class" Url="html/aee677ca-4f98-9b16-a122-1d827c192ad4.htm" />
+    <HelpKINode Title="about NdefParser class" Url="html/aee677ca-4f98-9b16-a122-1d827c192ad4.htm" />
+    <HelpKINode Title="constructor" Url="html/ca7b12ae-5234-c030-65fd-cff38985be3d.htm" />
+    <HelpKINode Title="methods" Url="html/00035b4f-f93a-2927-e1b1-099889dedb64.htm" />
+  </HelpKINode>
+  <HelpKINode Title="NdefParser.GetPayLoad method" Url="html/5ba89325-e7a9-1500-1d05-49f17aceb5be.htm" />
+  <HelpKINode Title="NdefParser.GetTag method" Url="html/79229abf-457f-1fe0-e7f9-c4a7c18472b4.htm" />
+  <HelpKINode Title="NdefParser.NdefParser constructor" Url="html/ca7b12ae-5234-c030-65fd-cff38985be3d.htm" />
+  <HelpKINode Title="NfcForumExternal enumeration member" Url="html/31b76514-eead-695a-a894-01a0415b9562.htm" />
+  <HelpKINode Title="NfcForumWellKnown enumeration member" Url="html/31b76514-eead-695a-a894-01a0415b9562.htm" />
+  <HelpKINode Title="Path property" Url="html/54017960-ebcb-fa7d-4952-7fce9ab9f0c7.htm" />
+  <HelpKINode Title="payload field" Url="html/f0b7a6e5-e683-8305-8604-73095f47df08.htm" />
+  <HelpKINode Title="Ping method" Url="html/222036f1-fba7-6b03-7f7c-dc3bbede0201.htm" />
+  <HelpKINode Title="PortName property" Url="html/d34235fb-700f-d246-94f8-0424f959d6f8.htm" />
+  <HelpKINode Title="ReadUID method" Url="html/01c62086-fa9a-77f7-3f0f-4b133a52d240.htm" />
+  <HelpKINode Title="Record class">
+    <HelpKINode Title="Record Class" Url="html/d6d98311-ee35-1fd5-fd18-1129585f19e5.htm" />
+    <HelpKINode Title="about Record class" Url="html/d6d98311-ee35-1fd5-fd18-1129585f19e5.htm" />
+    <HelpKINode Title="constructor" Url="html/ecf89e4e-f192-a293-ed70-0c1ec3f26197.htm" />
+    <HelpKINode Title="methods" Url="html/05fb5795-94b0-4d08-f7e0-0dd7f42c509d.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Record.GetByteArray method" Url="html/ac3fe694-3782-9a90-3abf-bae8adee6d07.htm" />
+  <HelpKINode Title="Record.Record constructor" Url="html/ecf89e4e-f192-a293-ed70-0c1ec3f26197.htm" />
+  <HelpKINode Title="RecordPayload class">
+    <HelpKINode Title="RecordPayload Class" Url="html/f57e69f0-0b4f-92d7-90f1-8801d6a67cd6.htm" />
+    <HelpKINode Title="about RecordPayload class" Url="html/f57e69f0-0b4f-92d7-90f1-8801d6a67cd6.htm" />
+    <HelpKINode Title="constructor" Url="html/42814252-18e7-2dbc-08bd-f2901a1e51df.htm" />
+    <HelpKINode Title="fields" Url="html/5841f6d1-f020-861a-4d27-369b37aa51e3.htm" />
+    <HelpKINode Title="methods" Url="html/12469a19-7ce4-0c63-d749-97c7da63e87d.htm" />
+    <HelpKINode Title="properties" Url="html/f809e80f-6f5d-7837-5f99-94ea6a658c75.htm" />
+  </HelpKINode>
+  <HelpKINode Title="RecordPayload.GetByteArray method" Url="html/eec49218-22d5-22df-cb66-0bbc66ddbcc1.htm" />
+  <HelpKINode Title="RecordPayload.IsShort method" Url="html/0f0a9a6b-2257-9951-6dbf-b211659f10fd.htm" />
+  <HelpKINode Title="RecordPayload.Length property" Url="html/66b06fc4-1860-8682-4510-1fc32920cd10.htm" />
+  <HelpKINode Title="RecordPayload.payload field" Url="html/f0b7a6e5-e683-8305-8604-73095f47df08.htm" />
+  <HelpKINode Title="RecordPayload.RecordPayload constructor" Url="html/42814252-18e7-2dbc-08bd-f2901a1e51df.htm" />
+  <HelpKINode Title="RemoveScheme method" Url="html/af5da496-916f-9d90-2dc2-746084f8dee6.htm" />
+  <HelpKINode Title="Scheme property" Url="html/48218084-15a8-363d-2cf5-ebd73b599e35.htm" />
+  <HelpKINode Title="Stop method" Url="html/2ab70741-81e9-0218-d491-98f352782a2b.htm" />
+  <HelpKINode Title="STRING_LOOKUP field" Url="html/6223f842-70af-ba31-5d7d-3fa543ebbeb5.htm" />
+  <HelpKINode Title="Tag class">
+    <HelpKINode Title="Tag Class" Url="html/d80bccd4-2cf7-70ed-e116-cc0a7e5f9aae.htm" />
+    <HelpKINode Title="about Tag class" Url="html/d80bccd4-2cf7-70ed-e116-cc0a7e5f9aae.htm" />
+    <HelpKINode Title="constructor" Url="html/417985c7-a825-7c1f-f5b8-7bc3be7239e5.htm" />
+    <HelpKINode Title="methods" Url="html/ea31f0b6-54b0-3b61-234a-e03748e52e04.htm" />
+    <HelpKINode Title="properties" Url="html/9b34ecd4-009b-52b8-542f-94a5463517c9.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Tag.Length property" Url="html/d8060ffb-bb7b-5348-b1fa-f47259bdcc20.htm" />
+  <HelpKINode Title="Tag.Tag constructor" Url="html/417985c7-a825-7c1f-f5b8-7bc3be7239e5.htm" />
+  <HelpKINode Title="Tag.TypeOfTag property" Url="html/01c58df6-d023-9a32-f503-efb88024fee4.htm" />
+  <HelpKINode Title="Tag.UID property" Url="html/7984a71d-6db7-48ef-1d49-0b96609157c0.htm" />
+  <HelpKINode Title="TappyError enumeration" Url="html/94bf2a6b-6bd4-30d7-650f-432161767e42.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB namespace" Url="html/5a0ddc0a-81ee-94fc-215e-a58b33fdeca7.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.ContentType enumeration" Url="html/d1845727-f1cf-eb88-0773-0129557ac6e7.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Driver class" Url="html/6945577e-1c98-c0d4-1e84-5d76c12f433b.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Driver.Callback delegate" Url="html/9da8e0b1-ded9-b86c-c3a4-81f31ca8d281.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Driver.CallbackError delegate" Url="html/43564255-7374-5853-dfc3-f4eeea435966.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Frame class" Url="html/cc25582d-a7a9-5bf4-cae3-aef3482fe503.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Ndef namespace" Url="html/91bc523e-3755-45a2-31de-2a62820d3fea.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Ndef.Header class" Url="html/f3201cc4-d67c-c4dc-57a4-cf5f25f7639a.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Ndef.NdefMessage class" Url="html/2726de43-566f-5088-3102-b64ce35f0d22.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Ndef.NdefParser class" Url="html/aee677ca-4f98-9b16-a122-1d827c192ad4.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Ndef.Record class" Url="html/d6d98311-ee35-1fd5-fd18-1129585f19e5.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Ndef.RecordPayload class" Url="html/f57e69f0-0b4f-92d7-90f1-8801d6a67cd6.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Ndef.TextRecordPayload class" Url="html/ecf870b5-079a-fca2-b43b-a5f153b48a81.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Ndef.TypeNameField enumeration" Url="html/31b76514-eead-695a-a894-01a0415b9562.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Ndef.UriRecordPayload class" Url="html/5afc44c1-2c90-4707-838b-5d49e4446b4e.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Tag class" Url="html/d80bccd4-2cf7-70ed-e116-cc0a7e5f9aae.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.TappyError enumeration" Url="html/94bf2a6b-6bd4-30d7-650f-432161767e42.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.Uri class" Url="html/31b774f5-fcce-9428-ba8f-23862ca3042b.htm" />
+  <HelpKINode Title="TapTrack.TappyUSB.VCard class" Url="html/a58467b6-696b-9520-a191-30a41b25aaa1.htm" />
+  <HelpKINode Title="Text enumeration member" Url="html/d1845727-f1cf-eb88-0773-0129557ac6e7.htm" />
+  <HelpKINode Title="TextRecordPayload class">
+    <HelpKINode Title="TextRecordPayload Class" Url="html/ecf870b5-079a-fca2-b43b-a5f153b48a81.htm" />
+    <HelpKINode Title="about TextRecordPayload class" Url="html/ecf870b5-079a-fca2-b43b-a5f153b48a81.htm" />
+    <HelpKINode Title="constructor" Url="html/1d1aac40-560d-44a3-9312-46f1810f3b00.htm" />
+    <HelpKINode Title="fields" Url="html/489f6638-0e46-e151-bdea-76b2bddb5ac7.htm" />
+    <HelpKINode Title="methods" Url="html/87fa88e0-c0de-056a-b334-26e65c7aba20.htm" />
+    <HelpKINode Title="properties" Url="html/23cb4b0f-59aa-c32c-c29f-ec1220076e62.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TextRecordPayload.TextRecordPayload constructor" Url="html/1d1aac40-560d-44a3-9312-46f1810f3b00.htm" />
+  <HelpKINode Title="ToByteArray method" Url="html/ce34c36d-b9cd-196c-7a06-0d81346aa0cd.htm" />
+  <HelpKINode Title="Transceive method" Url="html/63be565f-a256-e6be-33e2-95771547a40c.htm" />
+  <HelpKINode Title="TypeNameField enumeration" Url="html/31b76514-eead-695a-a894-01a0415b9562.htm" />
+  <HelpKINode Title="TypeOfTag property" Url="html/01c58df6-d023-9a32-f503-efb88024fee4.htm" />
+  <HelpKINode Title="UID property" Url="html/7984a71d-6db7-48ef-1d49-0b96609157c0.htm" />
+  <HelpKINode Title="Unchanged enumeration member" Url="html/31b76514-eead-695a-a894-01a0415b9562.htm" />
+  <HelpKINode Title="Unknown enumeration member" Url="html/31b76514-eead-695a-a894-01a0415b9562.htm" />
+  <HelpKINode Title="Uri class">
+    <HelpKINode Title="Uri Class" Url="html/31b774f5-fcce-9428-ba8f-23862ca3042b.htm" />
+    <HelpKINode Title="about Uri class" Url="html/31b774f5-fcce-9428-ba8f-23862ca3042b.htm" />
+    <HelpKINode Title="constructor" Url="html/d8277afb-1c7e-d00b-4283-dde8da776065.htm" />
+    <HelpKINode Title="fields" Url="html/d42888ba-d070-8646-d63d-07fd117ba64c.htm" />
+    <HelpKINode Title="methods" Url="html/7bf62163-3373-1e37-786b-dcca9a2ac35c.htm" />
+    <HelpKINode Title="properties" Url="html/b1f4e1be-fdde-5318-6bf3-9123dd9a7f03.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Uri enumeration member" Url="html/d1845727-f1cf-eb88-0773-0129557ac6e7.htm" />
+  <HelpKINode Title="Uri.BYTE_LOOKUP field" Url="html/8dcfee38-51b2-1412-ddf4-89a58dfda0c4.htm" />
+  <HelpKINode Title="Uri.GetCode method" Url="html/435f4ca5-251a-1c13-063f-8645152b3d96.htm" />
+  <HelpKINode Title="Uri.Path property" Url="html/54017960-ebcb-fa7d-4952-7fce9ab9f0c7.htm" />
+  <HelpKINode Title="Uri.RemoveScheme method" Url="html/af5da496-916f-9d90-2dc2-746084f8dee6.htm" />
+  <HelpKINode Title="Uri.Scheme property" Url="html/48218084-15a8-363d-2cf5-ebd73b599e35.htm" />
+  <HelpKINode Title="Uri.STRING_LOOKUP field" Url="html/6223f842-70af-ba31-5d7d-3fa543ebbeb5.htm" />
+  <HelpKINode Title="Uri.Uri constructor" Url="html/d8277afb-1c7e-d00b-4283-dde8da776065.htm" />
+  <HelpKINode Title="UriRecordPayload class">
+    <HelpKINode Title="UriRecordPayload Class" Url="html/5afc44c1-2c90-4707-838b-5d49e4446b4e.htm" />
+    <HelpKINode Title="about UriRecordPayload class" Url="html/5afc44c1-2c90-4707-838b-5d49e4446b4e.htm" />
+    <HelpKINode Title="constructor" Url="html/51bddceb-1cb0-329c-0012-aba4a3abd8bc.htm" />
+    <HelpKINode Title="fields" Url="html/aff985e9-9446-02a5-f395-41df60782815.htm" />
+    <HelpKINode Title="methods" Url="html/f5e8356b-6de3-87c8-65a1-69732ce8605c.htm" />
+    <HelpKINode Title="properties" Url="html/d703b1d2-53ee-a13d-c3be-70296ebb6156.htm" />
+  </HelpKINode>
+  <HelpKINode Title="UriRecordPayload.UriRecordPayload constructor" Url="html/51bddceb-1cb0-329c-0012-aba4a3abd8bc.htm" />
+  <HelpKINode Title="VCard class">
+    <HelpKINode Title="VCard Class" Url="html/a58467b6-696b-9520-a191-30a41b25aaa1.htm" />
+    <HelpKINode Title="about VCard class" Url="html/a58467b6-696b-9520-a191-30a41b25aaa1.htm" />
+    <HelpKINode Title="constructor" Url="html/9aaff404-0523-59ec-6ecc-617d2f0797fb.htm" />
+    <HelpKINode Title="methods" Url="html/2a40988c-bb9e-3c8d-c82d-d66ae8cddb75.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Vcard enumeration member" Url="html/d1845727-f1cf-eb88-0773-0129557ac6e7.htm" />
+  <HelpKINode Title="VCard.ToByteArray method" Url="html/ce34c36d-b9cd-196c-7a06-0d81346aa0cd.htm" />
+  <HelpKINode Title="VCard.VCard constructor" Url="html/9aaff404-0523-59ec-6ecc-617d2f0797fb.htm" />
+  <HelpKINode Title="WriteBlock method" Url="html/fb09be20-15de-262d-e267-3bea0662e0db.htm" />
+  <HelpKINode Title="WriteContentToTag method" Url="html/dbbfe51d-71bc-f478-55a1-8bfaf3443dde.htm" />
+  <HelpKINode Title="WriteContentToTagMultTimes method" Url="html/ddc1f6da-7062-513c-35df-bb8d6040f9b1.htm" />
+  <HelpKINode Title="WriteNdef method" Url="html/73a5c86b-0caa-e79d-9e38-69b9a6373d3e.htm" />
+  <HelpKINode Title="WriteNdefMultTimes method" Url="html/2e6a1862-b4ad-e95b-1bf9-01c3335fdc48.htm" />
+  <HelpKINode Title="WriteVCard method" Url="html/22504bdf-11fd-a831-d912-0dfe158d3a2e.htm" />
+  <HelpKINode Title="_Construct method" Url="html/c9d40538-5be7-18bb-062f-23346730c336.htm" />
+</HelpKI>

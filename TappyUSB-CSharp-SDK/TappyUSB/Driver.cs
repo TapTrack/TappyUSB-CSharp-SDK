@@ -13,15 +13,30 @@ namespace TapTrack.TappyUSB
     /// </summary>
     public enum TappyError
     {
+        /// <summary>
+        /// Non acknownledgement from the TappyUSB
+        /// </summary>
         Nack,
+        /// <summary>
+        /// Data check sum error in the data that was recieved
+        /// </summary>
         Dcs,
+        /// <summary>
+        /// Length check sum error in the data that was recieved
+        /// </summary>
         Lcs,
+        /// <summary>
+        /// An application error from the TappyUSB
+        /// </summary>
         Application,
+        /// <summary>
+        /// A hardware error such as the port is not open
+        /// </summary>
         Hardware
     }
 
     /// <summary>
-    /// The type of content that can be written using <c></c>WriteContentToTag</c>
+    /// The type of content that can be written using <c>WriteContentToTag</c>
     /// </summary>
     public enum ContentType
     {
@@ -106,7 +121,7 @@ namespace TapTrack.TappyUSB
         /// <summary>
         /// Create a new instance to communicate with the TappyUSB
         /// </summary>
-        /// <param name="portName">If portName is omitted then you must connect later using the Connect method</param>
+        /// <param name="portName">If <c>portName</c>is omitted then you must connect later using the <c>Connect</c> method</param>
         public Driver(string portName = null)
         {
             buffer = new List<byte>();
