@@ -11,7 +11,7 @@ namespace TapTrack.Demo
     using System.Threading;
     using TapTrack.TappyUSB;
     using WpfAnimatedGif;
-
+    using TappyUSB.Ndef;
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -36,7 +36,7 @@ namespace TapTrack.Demo
         private void ReadUIDButton_Click(object sender, RoutedEventArgs e)
         {
             ShowPendingStatus("Waiting for tap");
-            tappyDriver.ReadUID((byte)timeout.Value, AddUID, errorHandler:ErrorCallback);
+            tappyDriver.ReadUID((byte)timeout.Value, AddUID, errorHandler: ErrorCallback);
         }
 
         private void AddUID(byte[] data)
@@ -46,7 +46,7 @@ namespace TapTrack.Demo
             Action update = () =>
             {
                 uidTextBox.Text = "";
-                foreach (byte b in tag.SerialNumber)
+                foreach (byte b in tag.UID)
                     uidTextBox.Text += string.Format("{0:X}", b).PadLeft(2, '0') + " ";
                 typeTextBox.Text = string.Format("{0:X}", tag.TypeOfTag).PadLeft(2, '0');
             };
@@ -57,14 +57,14 @@ namespace TapTrack.Demo
         //
         // Write URI Tab
         //
-    
+
         private void WriteURLButton_Click(object sender, RoutedEventArgs e)
         {
             string path = string.Copy(urlTextBox.Text);
             byte code = Uri.RemoveScheme(ref path);
 
             ShowPendingStatus("Waiting for tap");
-            tappyDriver.WriteContentToTag(ContentType.URI, code, path, false, SuccessCallback, errorHandler: ErrorCallback);
+            tappyDriver.WriteContentToTag(ContentType.Uri, code, path, false, SuccessCallback, errorHandler: ErrorCallback);
         }
 
         //
@@ -74,7 +74,8 @@ namespace TapTrack.Demo
         private void WriteTextButton_Click(object sender, RoutedEventArgs e)
         {
             ShowPendingStatus("Waiting for tap");
-            tappyDriver.WriteNdef((byte)timeout.Value, (bool)lockCheckBox.IsChecked, new Ndef("en", TextBox.Text, "T"), SuccessCallback, errorHandler: ErrorCallback);
+            TextRecordPayload textRecord = new TextRecordPayload("en", TextBox.Text);
+            tappyDriver.WriteNdef((byte)timeout.Value, (bool)lockCheckBox.IsChecked, new NdefMessage(textRecord), SuccessCallback, errorHandler: ErrorCallback);
         }
 
         //
@@ -83,19 +84,21 @@ namespace TapTrack.Demo
 
         private void WriteMultNdef(object send, RoutedEventArgs e)
         {
-            List<string> payload = new List<string>();
-            List<string> type = new List<string>();
+            List<RecordPayload> recs = new List<RecordPayload>();
 
             foreach (Row row in table)
             {
-                payload.Add((row.Content == null)? "" : row.Content);
                 if (row.Selected.Equals("Text"))
-                    type.Add("T");
+                {
+                    recs.Add(new TextRecordPayload("en", (row.Content == null) ? "" : row.Content));
+                }
                 else
-                    type.Add("U");
+                {
+                    recs.Add(new UriRecordPayload((row.Content == null) ? "" : row.Content));
+                }
             }
 
-            Ndef message = new Ndef("en", payload.ToArray(), type.ToArray());
+            NdefMessage message = new NdefMessage(recs.ToArray());
 
             ShowPendingStatus("Waiting for tap");
             tappyDriver.WriteNdef((byte)timeout.Value, (bool)lockCheckBox.IsChecked, message, SuccessCallback, errorHandler: ErrorCallback);
@@ -307,14 +310,15 @@ namespace TapTrack.Demo
 
         public void ErrorCallback(TappyError code, byte[] data)
         {
-            if (code == TappyError.APP)
+            if (code == TappyError.Application)
             {
                 ShowFailStatus(tappyDriver.AppErrorLookUp(data[2]));
             }
-            else if(code == TappyError.HARDWARE){
+            else if (code == TappyError.Hardware)
+            {
                 ShowFailStatus("TappyUSB is not connected");
             }
-            else if(code == TappyError.NACK)
+            else if (code == TappyError.Nack)
             {
                 ShowFailStatus("NACK was recieved");
             }

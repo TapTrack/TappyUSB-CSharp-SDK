@@ -92,9 +92,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="TappyUSB_CSharp_SDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TappyUSB-CSharp-SDK, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\TappyUSB SDK\TappyUSB-CSharp-SDK\bin\Debug\TappyUSB_CSharp_SDK.dll</HintPath>
+      <HintPath>DLL\TappyUSB-CSharp-SDK.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -180,7 +180,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="TappyUSB Demo_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -610,6 +609,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\app.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="DLL\TappyUSB-CSharp-SDK.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

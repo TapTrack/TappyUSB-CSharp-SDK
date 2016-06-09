@@ -9,9 +9,8 @@ namespace TapTrack.TappyUSB
 
         public Uri(string uri)
         {
-            string temp = string.Copy(uri);
-            scheme = RemoveScheme(ref temp);
-            path = temp;
+            this.path = string.Copy(uri);
+            this.scheme = RemoveScheme(ref path);
         }
 
         public static readonly Dictionary<string, byte> BYTE_LOOKUP = new Dictionary<string, byte> {
@@ -90,12 +89,30 @@ namespace TapTrack.TappyUSB
             {0x23,"urn:nfc:"}
         };
 
+        /// <summary>
+        /// Will get the scheme also known as the NDEF URI code
+        /// </summary>
+        public byte Scheme
+        {
+            get
+            {
+                return scheme;
+            }
+        }
+
+        public string Path
+        {
+            get
+            {
+                return path;
+            }
+        }
 
         /// <summary>
         /// Removes the scheme from the uri
         /// </summary>
         /// <param name="uri"></param>
-        /// <returns>Byte code the scheme</returns>
+        /// <returns>Byte code of the scheme</returns>
         public static byte RemoveScheme(ref string uri)
         {
             foreach (string prefix in BYTE_LOOKUP.Keys)
@@ -114,7 +131,7 @@ namespace TapTrack.TappyUSB
         /// Get the byte code of the scheme from a uri
         /// </summary>
         /// <param name="uri"></param>
-        /// <returns>Byte code the the scheme</returns>
+        /// <returns>Byte code of the scheme</returns>
         public static byte GetCode(string uri)
         {
             foreach (string prefix in BYTE_LOOKUP.Keys)

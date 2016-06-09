@@ -5,7 +5,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace TapTrack.TappyUSB
+namespace TapTrack.TappyUSB.Ndef
 {
     public class NdefParser
     {
@@ -30,16 +30,6 @@ namespace TapTrack.TappyUSB
             type = new List<string>();
             ProcessTag();
         }
-
-        //public byte GetLangLen()
-        //{
-        //    return 0;
-        //}
-
-        //public bool isUTF8()
-        //{
-        //    return false;
-        //}
 
         private void ProcessTag()
         {
