@@ -11,13 +11,9 @@ namespace TapTrack.TappyUSB.Ndef
     {
         Queue<byte> tokens;
         int typeLen;
-        byte tagType;
         int idLen;
-        int payLoadLen;
-        int tagLen;
-        Tag tag;
+        uint payLoadLen;
         string id;
-        List<byte[]> payload;
         List<string> payloadEncoded;
         List<string> type;
         FlagHeader flags;
@@ -25,23 +21,8 @@ namespace TapTrack.TappyUSB.Ndef
         public NdefParser(byte[] data)
         {
             tokens = new Queue<byte>(data);
-            payload = new List<byte[]>();
             payloadEncoded = new List<string>();
             type = new List<string>();
-            ProcessTag();
-        }
-
-        private void ProcessTag()
-        {
-            tagType = Next();
-            tagLen = Next();
-
-            byte[] uid = new byte[tagLen];
-            for (int i = 0; tokens.Count > 0 && i < tagLen; i++)
-                uid[i] = Next();
-
-            tag = new Tag(tagType, uid);
-
             NdefMessage();
         }
 
@@ -58,7 +39,22 @@ namespace TapTrack.TappyUSB.Ndef
                     run = false;
 
                 typeLen = Next();
-                payLoadLen = Next();
+
+                if (flags.GetShort())
+                {
+                    payLoadLen = Next();
+                }
+                else
+                {
+                    byte[] tempLen = new byte[4];
+
+                    for (int i = 0; i < tempLen.Length; i++)
+                        tempLen[i] = Next();
+
+                    Array.Reverse(tempLen);
+
+                    payLoadLen = BitConverter.ToUInt32(tempLen, 0);
+                }
 
                 if (flags.GetIl())
                     idLen = Next();
@@ -87,31 +83,21 @@ namespace TapTrack.TappyUSB.Ndef
 
         private void Payload()
         {
-            byte[] content;
-            string scheme = "";
-            int length;
+            byte[] content = new byte[payLoadLen];
+            Func<byte[], string> parser;
+
+            for (int i = 0; i < payLoadLen; i++)
+            {
+                content[i] = Next();
+            }
+                
 
             if (type.Last().Equals("U"))
-            {
-                length = payLoadLen - 1;
-                scheme = Uri.STRING_LOOKUP[Next()];
-            }
+                parser = UriRecordPayload.Parse;
             else
-            {
-                int langLen = Next();
-                length = payLoadLen - langLen - 1;
-                for (int i = 0; i < langLen; i++)
-                    Next();
-            }
+                parser = TextRecordPayload.Parse;
 
-            content = new byte[length];
-
-            payload.Add(content);
-
-            for (int i = 0; i < length; i++)
-                payload.Last()[i] = Next();
-
-            payloadEncoded.Add(scheme + new string(Encoding.UTF8.GetChars(payload.Last())));
+            payloadEncoded.Add(parser(content));
         }
 
         public List<string> GetPayLoad()
@@ -122,12 +108,6 @@ namespace TapTrack.TappyUSB.Ndef
         private byte Next()
         {
             return tokens.Dequeue();
-        }
-
-
-        public Tag GetTag()
-        {
-            return tag;
         }
     }
 }

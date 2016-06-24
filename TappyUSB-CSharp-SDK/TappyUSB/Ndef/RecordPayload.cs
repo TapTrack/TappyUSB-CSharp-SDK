@@ -3,7 +3,7 @@ using System.Text;
 
 namespace TapTrack.TappyUSB.Ndef
 {
-    public class RecordPayload
+    public abstract class RecordPayload
     {
         protected List<byte> payload;
 
@@ -12,36 +12,21 @@ namespace TapTrack.TappyUSB.Ndef
             this.payload = new List<byte>();
         }
 
-        public RecordPayload(List<byte> data)
+        //protected abstract void SetContents(string content);
+
+        public abstract string NdefType
         {
-            this.payload = data;
+            get;
         }
 
-        //public static Record ConstructTextRecord(string language, string text)
-        //{
-
-        //    Header header = new Header(false, false, false, IsShort(payload), false, TypeNameField.NfcForumWellKnown, payload.Count, "T");
-
-        //    return new Record(header, payload);
-        //}
-
-        //public static Record ConstructUriRecord(string uri)
-        //{
-        //    List<byte> payload = new List<byte>();
-        //    string localUri = string.Copy(uri);
-        //    byte uriCode = Uri.RemoveScheme(ref localUri);
-
-        //    payload.Add(uriCode);
-        //    payload.AddRange(Encoding.UTF8.GetBytes(localUri));
-
-        //    Header header = new Header(false, false, false, IsShort(payload), false, TypeNameField.NfcForumWellKnown, payload.Count, "U");
-
-        //    return new Record(header, payload);
-        //}
+        public abstract TypeNameField Tnf
+        {
+            get;
+        }
 
         public bool IsShort()
         {
-            if (payload.Count < 255)
+            if (payload.Count < 256)
                 return true;
             else
                 return false;

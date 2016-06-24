@@ -7,36 +7,44 @@ namespace TapTrack.TappyUSB.Ndef
 {
     /// <summary>
     /// Helper class to construct NDEF messages to sent over the TappyUSB.
-    /// <note type="note">
-    ///     The only types that are supported are:
-    ///     <list type = "bullet" >
-    ///         <item>
-    ///             Text
-    ///         </item>
-    ///         <item>
-    ///             URI
-    ///         </item>
-    ///     </list>
-    /// </note>
-    /// 
     /// </summary>
     public class NdefMessage
     {
         private List<Record> msg;
 
+        /// <summary>
+        /// The header for the record payload will be generated for you
+        /// </summary>
+        /// <param name="payload">Payload to be sent</param>
         public NdefMessage(RecordPayload payload)
         {
             msg = new List<Record>();
-            AddRecords(payload);
+            AddRecordPayloads(payload);
         }
 
+        /// <summary>
+        /// The header for each record payload will be generated for you
+        /// </summary>
+        /// <param name="payload">Payload to be sent</param>
         public NdefMessage(RecordPayload[] payload)
         {
             msg = new List<Record>();
-            AddRecords(payload);
+            AddRecordPayloads(payload);
         }
 
-        private void AddRecords(params RecordPayload[] payload)
+        public NdefMessage(Record record)
+        {
+            msg = new List<Record>();
+            msg.Add(record);
+        }
+
+        public NdefMessage(Record[] records)
+        {
+            msg = new List<Record>();
+            msg.AddRange(records);
+        }
+
+        private void AddRecordPayloads(params RecordPayload[] payload)
         {
             Header header;
             bool begin;
@@ -53,16 +61,16 @@ namespace TapTrack.TappyUSB.Ndef
                 else
                     end = false;
 
-                if (payload[i] is TextRecordPayload)
-                    header = new Header(begin, end, false, payload[i].IsShort(), false, TypeNameField.NfcForumWellKnown, payload[i].Length, "T");
-                else
-                    header = new Header(begin, end, false, payload[i].IsShort(), false, TypeNameField.NfcForumWellKnown, payload[i].Length, "U");
+                header = new Header(begin, end, false, payload[i].IsShort(), false, payload[i].Tnf, payload[i].Length, payload[i].NdefType);
 
                 msg.Add(new Record(header, payload[i]));
             }
         }
 
-        // Returns the contents of all the messages
+        /// <summary>
+        /// Get the bytes representing the header
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<byte> GetByteArray()
         {
             for (int i = 0; i < msg.Count; i++)

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace TapTrack.TappyUSB
 {
-    public class Frame
+    internal class Frame
     {
         private byte[] frame;
         private int dataCount;
@@ -87,7 +87,6 @@ namespace TapTrack.TappyUSB
             return DCS;
         }
 
-        // check if there is a LCS error
         public bool LcsError()
         {
             if (Lcs + LenM + LenL != 0)
@@ -95,7 +94,6 @@ namespace TapTrack.TappyUSB
             return false;
         }
 
-        // check if there is a DCS error
         public bool DcsError()
         {
             byte checkSum = 0;
@@ -116,7 +114,10 @@ namespace TapTrack.TappyUSB
             return true;
         }
 
-        // check if the frame is a ACK frame
+        /// <summary>
+        /// Check if the frame is a ACK frame
+        /// </summary>
+        /// <returns>True if this frame is an ACK frame, false otherwise</returns>
         public bool IsACK()
         {
             if (Length != 8)
@@ -130,7 +131,10 @@ namespace TapTrack.TappyUSB
             return true;
         }
 
-        // check if the frame is a NACK frame
+        /// <summary>
+        /// Check if the frame is a NACK frame
+        /// </summary>
+        /// <returns>True if this frame is an NACK frame, false otherwise</returns>
         public bool IsNACK()
         {
             if (Length != 8)
@@ -144,7 +148,10 @@ namespace TapTrack.TappyUSB
             return true;
         }
 
-        // check if the frame is an application error frame
+        /// <summary>
+        /// Check if the frame is an application error frame
+        /// </summary>
+        /// <returns>True if this frame is an application error frame, false otherwise</returns>
         public bool IsAppError()
         {
             if (Length != 10)
@@ -154,7 +161,10 @@ namespace TapTrack.TappyUSB
             return true;
         }
 
-        // cast a Frame to a byte[]
+        /// <summary>
+        /// Cast a Frame to a byte[]
+        /// </summary>
+        /// <param name="f"></param>
         static public implicit operator byte[] (Frame f)
         {
             return f.frame;

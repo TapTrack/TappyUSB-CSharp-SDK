@@ -5,11 +5,12 @@ using TapTrack.TappyUSB.Exceptions;
 using System.Diagnostics;
 using System.Threading;
 using TapTrack.TappyUSB.Ndef;
+using System.Text;
 
 namespace TapTrack.TappyUSB
 {
     /// <summary>
-    /// The different type of errors callbacks can recieve
+    /// The different type of errors callbacks can receive
     /// </summary>
     public enum TappyError
     {
@@ -32,7 +33,7 @@ namespace TapTrack.TappyUSB
     }
 
     /// <summary>
-    /// The Driver class is used to communicate with the TappyUSB
+    /// The Driver class is used to communicate(send commands and receive data) with the TappyUSB.
     /// </summary>
     public class Driver
     {
@@ -133,11 +134,16 @@ namespace TapTrack.TappyUSB
         public bool Ping()
         {
             bool responded = false;
+            AutoResetEvent receieve = new AutoResetEvent(false);
 
-            Callback ack = (byte[] data) => responded = true;
+            Callback ack = (byte[] data) =>
+            {
+                responded = true;
+                receieve.Set();
+            };
 
             Stop(ackHandler: ack);
-            Thread.Sleep(100);
+            receieve.WaitOne(100);
             if (responded)
                 return true;
 
@@ -287,23 +293,20 @@ namespace TapTrack.TappyUSB
         ///         static void Main(string[] args)
         ///         {
         ///             Driver tappyDriver = new Driver();
-        /// 
+        ///         
         ///             tappyDriver.AutoDetect();                   // Automatically connect to the first TappyUSB the driver finds
-        /// 
-        ///             tappyDriver.ReadUID(0, SuccessCallback);    // Send the ReadUID command with no timeout. SuccessCallback is run when a valid tag i
+        ///         
+        ///             tappyDriver.ReadUID(0, SuccessCallback);    // Send the ReadUID command with no timeout. SuccessCallback is run when a valid tag is detected
         ///             Console.WriteLine("Please tap tag");
         ///             Console.ReadKey();                          // Stop the program from exiting
         ///         }
-        /// 
+        ///         
         ///         public static void SuccessCallback(byte[] data)
         ///         {
         ///             Tag tag = new Tag(data);
-        /// 
-        ///             string uid = "";
-        /// 
-        ///             foreach(byte temp in tag.UID)                                       // Convert byte array to a string of hexadecimal characters
-        ///                 uid += string.Format("{0:X}", temp).PadLeft(2, '0') + " ";
-        /// 
+        ///         
+        ///             string uid = BitConverter.ToString(tag.UID);    // Convert byte array to a string of hexadecimal characters
+        ///         
         ///             Console.WriteLine("UID: {0}", uid);
         ///         }
         ///     }
@@ -312,21 +315,13 @@ namespace TapTrack.TappyUSB
         /// </example>
         /// 
         /// <param name="timeout">The max time the TappyUSB will wait for a tag. 0 = infinite timeout</param>
-        /// <param name="successHandler">Method to be called when a success occurs</param>
+        /// <param name="successHandler">Method to be called when a successful read occurs</param>
         /// <param name="ackHandler">Method to be called when an ACK is received</param>
         /// <param name="errorHandler">Method to be called when an application, NACK, DCS, or LCS error occurs</param>
         public void ReadUID(byte timeout, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
         {
             Debug.WriteLine("Starting Command: Read");
             Send(Frame.ConstructCommand(Driver.CMD.READ_UID, timeout), new CallbackSet(successHandler, ackHandler, errorHandler));
-        }
-
-        private void AddContent(byte[] parameters, string uri, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
-        {
-            if (parameters.Length != 3)
-                throw new ArgumentException("Parameters must be a length of 3");
-            Debug.WriteLine("Starting Command: Add Content");
-            Send(Frame.ConstructCommand(Driver.CMD.ADD_CONTENT, parameters, uri), new CallbackSet(successHandler, ackHandler, errorHandler));
         }
 
         private void AddContent(byte index, ContentType type, byte uriCode, byte[] content, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
@@ -340,34 +335,61 @@ namespace TapTrack.TappyUSB
             Send(Frame.ConstructCommand(Driver.CMD.ADD_CONTENT, payload.ToArray()), new CallbackSet(successHandler, ackHandler, errorHandler));
         }
 
-        /// <summary>
-        /// Emulate the data from the content slot on the TappyUSB
-        /// </summary>
-        /// <param name="index">The index of the content to emulate</param>
-        /// <param name="interruptable">Disable interrupt = 0x00, Enable interrupt != 0x00</param>
-        /// <param name="maxScanCount">The number of times you TappyUSB can be scanned</param>
-        /// <param name="timeoutH">timeout = timeoutH * 256 + timeoutL</param>
-        /// <param name="timeoutL">timeout = timeoutH * 256 + timeoutL</param>
-        /// <param name="successHandler">Method to be called when a success occurs</param>
-        /// <param name="ackHandler">Method to be called when an ACK is received</param>
-        /// <param name="errorHandler">Method to be called when an application, NACK, DCS, or LCS error occurs</param>
-        private void Emulate(byte index, byte interruptable, byte maxScanCount, byte timeoutH, byte timeoutL, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
+        private void AddContent(byte index, ContentType type, string content, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
         {
-            Debug.WriteLine("Starting Command: Emulate");
-            Send(Frame.ConstructCommand(Driver.CMD.EMULATE, index, interruptable, maxScanCount, timeoutH, timeoutL), new CallbackSet(successHandler, ackHandler, errorHandler));
+            byte uriCode;
+            byte[] contentBytes;
+
+            if (type == ContentType.Uri)
+            {
+                Uri temp = new Uri(content);
+                uriCode = temp.Scheme;
+                contentBytes = Encoding.UTF8.GetBytes(temp.Path);
+            }
+            else
+            {
+                uriCode = 0x00;
+                contentBytes = Encoding.UTF8.GetBytes(content);
+            }
+
+            Debug.WriteLine("Starting Command: Add Content");
+            List<byte> payload = new List<byte>();
+            payload.Add(index);
+            payload.Add((byte)type);
+            payload.Add(uriCode);
+            payload.AddRange(contentBytes);
+            Send(Frame.ConstructCommand(Driver.CMD.ADD_CONTENT, payload.ToArray()), new CallbackSet(successHandler, ackHandler, errorHandler));
         }
 
         /// <summary>
-        /// The TappyUSB will emit data from a content slot
+        /// <para>The TappyUSB acts as a tag with URL, Text, or VCard content</para>
+        /// <note type="important">
+        ///     <list type="bullet">
+        ///         <item>
+        ///             This command is only supported on certain firmware versions. 
+        ///             Contact TapTrack to check if this command is available on the version of firmware currently on your
+        ///             device.
+        ///         </item>
+        ///         <item>
+        ///             The emulation of the TappyUSB may not be detected by all phones
+        ///         </item>
+        ///     </list>
+        /// </note>
         /// </summary>
-        /// <param name="parameters"></param>
-        /// <param name="successHandler">Method to be called when a success occurs</param>
+        /// <param name="type">Type of content that will be emulated. Either a Uri, text, or Vcard</param>
+        /// <param name="content"></param>
+        /// <param name="interruptable">If true the TappyUSB can not be interrupted by a stop command while emulating, if false the TappyUSB can be interrupted</param>
+        /// <param name="maxScanCount">The maximum number of scans of the emulated content. When the max number of scans is reached the TappyUSB will stop emulating</param>
+        /// <param name="timeout"></param>
         /// <param name="ackHandler">Method to be called when an ACK is received</param>
         /// <param name="errorHandler">Method to be called when an application, NACK, DCS, or LCS error occurs</param>
-        private void Emulate(byte[] parameters, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
+        public void Emulate(ContentType type, string content, bool interruptable, byte maxScanCount, short timeout, Callback ackHandler = null, CallbackError errorHandler = null)
         {
             Debug.WriteLine("Starting Command: Emulate");
-            Send(Frame.ConstructCommand(Driver.CMD.EMULATE, parameters), new CallbackSet(successHandler, ackHandler, errorHandler));
+            byte[] timeoutByte = BitConverter.GetBytes(timeout);
+            Callback ack = (byte[] data) => Send(Frame.ConstructCommand(Driver.CMD.EMULATE, 0, Convert.ToByte(interruptable), maxScanCount, timeoutByte[1], timeoutByte[0]), new CallbackSet(null, ackHandler, errorHandler));
+
+            AddContent(0, type, content, null, ack);
         }
 
         private void Write(byte index, bool willLock, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
@@ -380,48 +402,83 @@ namespace TapTrack.TappyUSB
         /// <summary>
         /// Will write text, uri, VCard, or empty content to a NFC tag
         /// </summary>
+        /// <example>
+        ///     <para>
+        ///         How to write text to a tag
+        ///     </para>
+        ///     <code language="cs">
+        ///         using System;
+        ///         using TapTrack.TappyUSB;
+        ///         
+        ///         namespace TapTrack.TappyUSB.Example
+        ///         {
+        ///             class WriteTextExample
+        ///             {
+        ///                 static void Main(string[] args)
+        ///                 {
+        ///                     Driver tappyDriver = new Driver();
+        ///         
+        ///                     tappyDriver.AutoDetect();                   // Automatically connect to the first TappyUSB the driver finds
+        ///         
+        ///                     // Write the text "Hello world!" to a tag that will not a locked after writing
+        ///                     tappyDriver.WriteContentToTag(ContentType.Text, "Hello world!", false, null);
+        ///         
+        ///                     Console.WriteLine("Please tap tag");
+        ///                     Console.ReadKey();                          // Stop the program from exiting
+        ///                 }
+        ///             }
+        ///         }   
+        ///     </code>
+        ///     <para>
+        ///         Writing a URL to a tag
+        ///     </para>
+        ///     <code language="cs">
+        ///         using System;
+        ///         using TapTrack.TappyUSB;
+        ///         
+        ///         namespace TapTrack.TappyUSB.Example
+        ///         {
+        ///             class WriteUrlExample
+        ///             {
+        ///                 static void Main(string[] args)
+        ///                 {
+        ///                     Driver tappyDriver = new Driver();
+        ///         
+        ///                     tappyDriver.AutoDetect();                   // Automatically connect to the first TappyUSB the driver finds
+        ///         
+        ///                     // Write the url "http://google.ca" to a tag that will not a locked after writing
+        ///                     tappyDriver.WriteContentToTag(ContentType.Uri, "http://google.ca", false, null);
+        ///         
+        ///                     Console.WriteLine("Please tap tag");
+        ///                     Console.ReadKey();                          // Stop the program from exiting
+        ///                 }
+        ///             }
+        ///         }   
+        ///     </code>
+        /// </example>
         /// <param name="type">Type of content that will be sent</param>
-        /// <param name="uriCode">The prefix of the uri</param>
         /// <param name="content">The data to be written to the tag</param>
         /// <param name="willLock">If true the Tappy will lock the tag after writing, preventing further writes to the tag</param>
         /// <param name="successHandler">Method to be called when a success occurs</param>
         /// <param name="ackHandler">Method to be called when an ACK is received</param>
         /// <param name="errorHandler">Method to be called when an application, NACK, DCS, or LCS error occurs</param>
-        public void WriteContentToTag(ContentType type, byte uriCode, string content, bool willLock, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
+        public void WriteContentToTag(ContentType type, string content, bool willLock, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
         {
             Callback ack = (byte[] data) => Write(0, willLock, successHandler, ackHandler, errorHandler);
 
-            AddContent(new byte[] { 0, (byte)type, uriCode }, content, null, ack, errorHandler);
-        }
-
-        /// <summary>
-        /// Will write text, uri, VCard, or empty content to a NFC tag
-        /// </summary>
-        /// <param name="type">Type of content that will be sent</param>
-        /// <param name="uriCode">The prefix of the uri</param>
-        /// <param name="content">The data to be written to the tag</param>
-        /// <param name="willLock">If true the Tappy will lock the tag after writing, preventing further writes to the tag</param>
-        /// <param name="successHandler">Method to be called when a success occurs</param>
-        /// <param name="ackHandler">Method to be called when an ACK is received</param>
-        /// <param name="errorHandler">Method to be called when an application, NACK, DCS, or LCS error occurs</param>
-        public void WriteContentToTag(ContentType type, byte uriCode, byte[] content, bool willLock, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
-        {
-            Callback ack = (byte[] data) => Write(0, willLock, successHandler, ackHandler, errorHandler);
-
-            AddContent(0, type, uriCode, content, null, ack, errorHandler);
+            AddContent(0, type, content, null, ack, errorHandler);
         }
 
         /// <summary>
         /// Will write text, uri, VCard, or empty content to a NFC tag. Instructs the tappy to continue to write after a tag is written
         /// </summary>
         /// <param name="type">Type of content that will be sent</param>
-        /// <param name="uriCode">The prefix of the uri</param>
         /// <param name="content">The data to be written to the tag</param>
         /// <param name="willLock">If true the Tappy will lock the tag after writing, preventing further writes to the tag</param>
         /// <param name="successHandler">Method to be called when a success occurs</param>
         /// <param name="ackHandler">Method to be called when an ACK is received</param>
         /// <param name="errorHandler">Method to be called when an application, NACK, DCS, or LCS error occurs</param>
-        public void WriteContentToTagMultTimes(ContentType type, byte uriCode, string content, bool willLock, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
+        public void WriteContentToTagMultTimes(ContentType type, string content, bool willLock, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
         {
             Callback write = null;
             write = (byte[] data) =>
@@ -430,7 +487,7 @@ namespace TapTrack.TappyUSB
                 Write(0, willLock, successHandler + write, ackHandler, errorHandler);
             };
 
-            WriteContentToTag(type, uriCode, content, willLock, successHandler + write, ackHandler, errorHandler);
+            WriteContentToTag(type, content, willLock, successHandler + write, ackHandler, errorHandler);
         }
 
         /// <summary>
@@ -500,7 +557,10 @@ namespace TapTrack.TappyUSB
         /// </summary>
         /// 
         /// <example>
-        /// Example of how to write a Ndef message with a single text record
+        /// <para>
+        ///     Example of how to write a Ndef message with a single text record
+        /// </para>
+        /// 
         /// 
         /// <code language="cs">
         ///      using System;
@@ -513,17 +573,51 @@ namespace TapTrack.TappyUSB
         ///              static void Main(string[] args)
         ///              {
         ///                  Driver tappyDriver = new Driver();
-        ///                  TextRecordPayload payload = new TextRecordPayload("en", "Hello world!");     // Ndef message with one text record
+        ///                  TextRecordPayload payload = new TextRecordPayload("en", "Hello world!");   // Ndef message with one text record
         ///      
-        ///                  tappyDriver.AutoDetect();                               // Automatically connect to the first TappyUSB the driver finds
+        ///                  tappyDriver.AutoDetect();                                                  // Automatically connect to the first TappyUSB the driver finds
         ///      
-        ///                  tappyDriver.WriteNdef(0, false, new NdefMessage(payload), null);         // Send the WriteNdef command with no timeout and no callbacks
+        ///                  tappyDriver.WriteNdef(0, false, new NdefMessage(payload), null);           // Send the WriteNdef command with no timeout and no callbacks
         ///      
         ///                  Console.WriteLine("Please tap tag");
-        ///                  Console.ReadKey();                                      // Stop the program from exiting
+        ///                  Console.ReadKey();                                                         // Stop the program from exiting
         ///              }
         ///          }
         ///      }
+        /// </code>
+        /// <para>
+        ///     How to write a multi-Ndef record to a tag
+        /// </para>
+        /// <code language="cs">
+        ///    using System;
+        ///    using System.Collections.Generic;
+        ///    using TapTrack.TappyUSB.Ndef;
+        ///    
+        ///    namespace TapTrack.TappyUSB.Example
+        ///    {
+        ///        class WriteNdefExample
+        ///        {
+        ///            static void Main(string[] args)
+        ///            {
+        ///                Driver tappyDriver = new Driver();
+        ///    
+        ///                List&lt;RecordPayload&gt; payload = new List&lt;RecordPayload&gt;();
+        ///    
+        ///                TextRecordPayload textRecord = new TextRecordPayload("en", "Hello world!");
+        ///                UriRecordPayload uriRecord = new UriRecordPayload("http://www.taptrack.com");
+        ///    
+        ///                payload.Add(textRecord);
+        ///                payload.Add(uriRecord);
+        ///    
+        ///                tappyDriver.AutoDetect();
+        ///    
+        ///                tappyDriver.WriteNdef(0, false, new NdefMessage(payload.ToArray()), null);
+        ///    
+        ///                Console.WriteLine("Please tap tag");
+        ///                Console.ReadKey();
+        ///            }
+        ///        }
+        ///    }
         /// </code>
         /// 
         /// </example>
@@ -547,12 +641,12 @@ namespace TapTrack.TappyUSB
         /// <summary>
         /// Will continuously write Ndef messages to tags that are presented to the TappyUSB
         /// </summary>
-        /// <param name="timeout"></param>
-        /// <param name="willLock"></param>
-        /// <param name="message"></param>
-        /// <param name="successHandler"></param>
-        /// <param name="ackHandler"></param>
-        /// <param name="errorHandler"></param>
+        /// <param name="timeout">The max time the TappyUSB will wait for a tag. 0 = infinite timeout</param>
+        /// <param name="willLock">Determine whether to lock to tag after writing, locking prevents further writing to the tag</param>
+        /// <param name="message">Ndef message to sent</param>
+        /// <param name="successHandler">Method to be called when a successful write occurs</param>
+        /// <param name="ackHandler">Method to be called when an ACK is received</param>
+        /// <param name="errorHandler">Method to be called when an application, NACK, DCS, or LCS error occurs</param>
         public void WriteNdefMultTimes(byte timeout, bool willLock, NdefMessage message, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
         {
             Callback write = null;
@@ -565,18 +659,26 @@ namespace TapTrack.TappyUSB
             WriteNdef(timeout, willLock, message, successHandler + write, ackHandler, errorHandler);
         }
 
-        //public void ReadNdef(byte timeout, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
-        //{
-        //    Debug.WriteLine("Starting Command: Read Ndef");
-        //    Send(Frame.ConstructCommand(Driver.CMD.READ_NDEF, timeout), new CallbackSet(successHandler, ackHandler, errorHandler));
-        //}
+        /// <summary>
+        /// Read an Ndef message from a tag
+        /// </summary>
+        /// <param name="timeout">The max time the TappyUSB will wait for a tag. 0 = infinite timeout</param>
+        /// <param name="successHandler">Method to be called when a successful read occurs</param>
+        /// <param name="ackHandler">Method to be called when an ACK is received</param>
+        /// <param name="errorHandler">Method to be called when an application, NACK, DCS, or LCS error occurs</param>
+        public void ReadNdef(byte timeout, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
+        {
+            Debug.WriteLine("Starting Command: Read Ndef");
+
+            Send(Frame.ConstructCommand(Driver.CMD.READ_NDEF, timeout), new CallbackSet(successHandler, ackHandler, errorHandler));
+        }
 
         /// <summary>
         /// Will write VCard formatted info to an NFC tag
         /// </summary>
         /// <param name="info">The data to be written</param>
         /// <param name="willLock">if true, the tag will be locked after writing</param>
-        /// <param name="successHandler">Method to be called when a success occurs</param>
+        /// <param name="successHandler">Method to be called when a successful write occurs</param>
         /// <param name="ackHandler">Method to be called when an ACK is received</param>
         /// <param name="errorHandler">Method to be called when an application, NACK, DCS, or LCS error occurs</param>
         public void WriteVCard(VCard info, bool willLock, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
@@ -591,7 +693,7 @@ namespace TapTrack.TappyUSB
         /// Locks a tag to prevent further writing to the tag
         /// </summary>
         /// <param name="timeout">The max time the TappyUSB will wait for a tag. 0 = infinite timeout</param>
-        /// <param name="successHandler">Method to be called when a success occurs</param>
+        /// <param name="successHandler">Method to be called when a successful lock occurs</param>
         /// <param name="ackHandler">Method to be called when an ACK is received</param>
         /// <param name="errorHandler">Method to be called when an application, NACK, DCS, or LCS error occurs</param>
         public void LockCard(byte timeout, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
@@ -609,9 +711,9 @@ namespace TapTrack.TappyUSB
         /// <param name="startBlock">block in the memory of the tag to start writing</param>
         /// <param name="typeOfTag">Only accepts 0x07</param>
         /// <param name="data">array of bytes to write to the tag</param>
-        /// <param name="successHandler"></param>
-        /// <param name="ackHandler"></param>
-        /// <param name="errorHandler"></param>
+        /// <param name="successHandler">Method to be called when a successful write occurs</param>
+        /// <param name="ackHandler">Method to be called when an ACK is received</param>
+        /// <param name="errorHandler">Method to be called when an application, NACK, DCS, or LCS error occurs</param>
         public void WriteBlock(byte timeout, bool willLock, byte startBlock, byte typeOfTag, byte[] data, Callback successHandler, Callback ackHandler = null, CallbackError errorHandler = null)
         {
             List<byte> payload = new List<byte>();
@@ -692,7 +794,7 @@ namespace TapTrack.TappyUSB
         /// <summary>
         /// Will clear all current callbacks that are set
         /// </summary>
-        public void Clear()
+        private void Clear()
         {
             validResponseFrameCb = null;
             ackCb = null;
@@ -705,9 +807,10 @@ namespace TapTrack.TappyUSB
         /// <summary>
         /// Will issue a stop command to the TappyUSB. This will stop the operations the TappyUSB is currently doing
         /// </summary>
-        public void Stop(Callback successHandler = null, Callback ackHandler = null, CallbackError errorHandler = null)
+        /// <param name="ackHandler"></param>
+        /// <param name="errorHandler"></param>
+        public void Stop(Callback ackHandler = null, CallbackError errorHandler = null)
         {
-            validResponseFrameCb = successHandler ?? validResponseFrameCb;
             ackCb = ackHandler ?? ackCb;
             nackCb = errorHandler ?? nackCb;
             lcsErrorResponseCb = errorHandler ?? lcsErrorResponseCb;
@@ -765,9 +868,9 @@ namespace TapTrack.TappyUSB
         }
 
         /// <summary>
-        /// Close the port connection to the TappyUSB
+        /// Disconnects from the current device the driver is connected to
         /// </summary>
-        public void Close()
+        public void Disconnect()
         {
             port.Close();
         }

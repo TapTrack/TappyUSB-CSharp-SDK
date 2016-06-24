@@ -30,6 +30,36 @@ namespace TapTrack.Demo
         }
 
         //
+        // Read Ndef Message tab
+        //
+
+        private void ReadNdefButton_Click(object sender, RoutedEventArgs e)
+        {
+            ndefData.Text = "";
+            tappyDriver.ReadNdef((byte)timeout.Value, AddNdefContent);
+        }
+
+        private void AddNdefContent (byte[] data)
+        {
+            byte[] temp = new byte[data.Length - data[1] - 2];
+
+            Array.Copy(data, 2 + data[1], temp, 0, temp.Length);
+             
+            NdefParser parser = new NdefParser(temp);
+
+            Action update = () =>
+            {
+                foreach (string content in parser.GetPayLoad())
+                {
+                    ndefData.Text += content + "\r\n";
+                }
+            };
+
+            Dispatcher.BeginInvoke(update);
+            ShowSuccessStatus();
+        }
+
+        //
         // Read UID Tab
         //
 
@@ -60,11 +90,10 @@ namespace TapTrack.Demo
 
         private void WriteURLButton_Click(object sender, RoutedEventArgs e)
         {
-            string path = string.Copy(urlTextBox.Text);
-            byte code = Uri.RemoveScheme(ref path);
+            string url = string.Copy(urlTextBox.Text);
 
             ShowPendingStatus("Waiting for tap");
-            tappyDriver.WriteContentToTag(ContentType.Uri, code, path, false, SuccessCallback, errorHandler: ErrorCallback);
+            tappyDriver.WriteContentToTag(ContentType.Uri, url, false, SuccessCallback, errorHandler: ErrorCallback);
         }
 
         //
@@ -229,7 +258,6 @@ namespace TapTrack.Demo
                 else
                     ShowFailStatus("No TappyUSB found");
             });
-
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
@@ -320,7 +348,7 @@ namespace TapTrack.Demo
             }
             else if (code == TappyError.Nack)
             {
-                ShowFailStatus("NACK was recieved");
+                ShowFailStatus("NACK was received");
             }
         }
     }

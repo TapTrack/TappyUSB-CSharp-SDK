@@ -60,9 +60,6 @@
                 </Grid>
             </Border>
         </Popup>
-        <!--<Label Grid.Row="2" Panel.ZIndex="10" FontSize="20" Background="#595959" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-            Test jlkjkwlejrlkwjrkljer
-        </Label>-->
         <TabControl Padding="0" Grid.Row="2" ItemContainerStyle="{StaticResource SimpleTabItem}" BorderBrush="#FF15AAFF" Background="{x:Null}" BorderThickness="0,2,0,0" Foreground="{x:Null}">
             <TabControl.Resources>
                 <Style TargetType="{x:Type Grid}">
@@ -82,6 +79,15 @@
                             <Setter Property="VerticalAlignment" Value="Top"/>
                         </Style>
                     </TabControl.Resources>
+                    <TabItem Style="{StaticResource DetectTagTab}">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Background="{StaticResource DarkBackground}" Orientation="Vertical">
+                                <Label Margin="10,10,0,0" Padding="0,0,0,10" Foreground="White" Content="Content"/>
+                                <TextBox Name="ndefData" AcceptsReturn="True" Style="{StaticResource TextBox}"></TextBox>
+                                <Button Name="readNdefButton" Margin="10" HorizontalAlignment="Right" Style="{StaticResource RoundButton}" Click="ReadNdefButton_Click">Read</Button>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
                     <TabItem Style="{StaticResource DetectTagTab}">
                         <StackPanel Background="{StaticResource DarkBackground}" Orientation="Vertical">
                             <Label Margin="10,10,0,0" Padding="0,0,0,10" Foreground="White" Content="UID"/>
@@ -119,14 +125,14 @@
                     </TabControl.Resources>
                     <TabItem Header="Write URL" Style="{StaticResource WriteURL}">
                         <StackPanel  Background="{StaticResource DarkBackground}" Orientation="Vertical">
-                            <Label Margin="10,10,0,0" Padding="0,0,0,10" Foreground="White" Target="{Binding ElementName=UrlTextBox}" Content="URL"/>
+                            <Label Margin="10,10,0,0" Padding="0,0,0,10" Foreground="White" Target="{Binding ElementName=urlTextBox}" Content="URL"/>
                             <TextBox Name="urlTextBox" Margin="10,0,20,20" Foreground="White" Background="{StaticResource LightBackground}" BorderBrush="#595959" BorderThickness="0,0,0,1"/>
                             <Button Name="writeURLButton" Margin="10" HorizontalAlignment="Right" Style="{StaticResource RoundButton}" Click="WriteURLButton_Click">Write</Button>
                         </StackPanel>
                     </TabItem>
                     <TabItem Style="{StaticResource WriteText}">
                         <StackPanel  Background="{StaticResource DarkBackground}" Orientation="Vertical">
-                            <Label Margin="10,10,0,0" Padding="0,0,0,10" Foreground="White" Target="{Binding ElementName=UrlTextBox}" Content="Text"/>
+                            <Label Margin="10,10,0,0" Padding="0,0,0,10" Foreground="White" Target="{Binding ElementName=TextBox}" Content="Text"/>
                             <TextBox Name="TextBox" Margin="10,0,20,20" Foreground="White" Background="{StaticResource LightBackground}" BorderBrush="#595959" BorderThickness="0,0,0,1"/>
                             <Button Name="writeTextButton" Margin="10" HorizontalAlignment="Right" Style="{StaticResource RoundButton}" Click="WriteTextButton_Click">Write</Button>
                         </StackPanel>

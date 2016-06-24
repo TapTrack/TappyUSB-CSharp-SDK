@@ -21,11 +21,6 @@ namespace TapTrack.TappyUSB.Ndef
             this.flags = (HeaderFlags)flags;
         }
 
-        public FlagHeader(bool mb, bool me, bool chuckFlag, bool isShort, bool il, byte tnf)
-        {
-
-        }
-
         public bool GetMb()
         {
             return (flags & HeaderFlags.MessageBegin) == HeaderFlags.MessageBegin;
@@ -41,7 +36,7 @@ namespace TapTrack.TappyUSB.Ndef
             return (flags & HeaderFlags.Chuck) == HeaderFlags.Chuck;
         }
 
-        public bool GetSr()
+        public bool GetShort()
         {
             return (flags & HeaderFlags.Short) == HeaderFlags.Short;
         }
