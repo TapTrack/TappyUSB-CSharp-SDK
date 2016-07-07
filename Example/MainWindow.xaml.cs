@@ -9,9 +9,10 @@ namespace TapTrack.Demo
     using System.Windows.Media.Imaging;
     using System.Collections.ObjectModel;
     using System.Threading;
-    using TapTrack.TappyUSB;
+    using TappyUSB;
     using WpfAnimatedGif;
     using TappyUSB.Ndef;
+    using System.Diagnostics;
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -36,22 +37,22 @@ namespace TapTrack.Demo
         private void ReadNdefButton_Click(object sender, RoutedEventArgs e)
         {
             ndefData.Text = "";
-            tappyDriver.ReadNdef((byte)timeout.Value, AddNdefContent);
+            tappyDriver.ReadNdef((byte)timeout.Value, AddNdefContent, errorHandler: ErrorCallback);
         }
 
-        private void AddNdefContent (byte[] data)
+        private void AddNdefContent(byte[] data)
         {
             byte[] temp = new byte[data.Length - data[1] - 2];
 
             Array.Copy(data, 2 + data[1], temp, 0, temp.Length);
-             
+
             NdefParser parser = new NdefParser(temp);
 
             Action update = () =>
             {
-                foreach (string content in parser.GetPayLoad())
+                foreach (RecordData payload in parser.GetPayLoad())
                 {
-                    ndefData.Text += content + "\r\n";
+                    ndefData.Text += payload.Content + "\r\n";
                 }
             };
 
@@ -350,6 +351,57 @@ namespace TapTrack.Demo
             {
                 ShowFailStatus("NACK was received");
             }
+        }
+
+        private void launchUrlButton_Click(object sender, RoutedEventArgs e)
+        {
+            DetectandLaunch();
+        }
+
+        public void DetectandLaunch()
+        {
+            tappyDriver.ReadNdef(0, LaunchCallback);
+        }
+
+        private void LaunchCallback(byte[] data)
+        {
+            byte[] temp = new byte[data.Length - data[1] - 2];
+
+            Array.Copy(data, 2 + data[1], temp, 0, temp.Length);
+
+            NdefParser parser = new NdefParser(temp);
+            RecordData[] payload = parser.GetPayLoad().ToArray();
+
+            if (payload.Length > 0)
+            {
+                if (payload[0].NdefType.Equals("U"))
+                {
+                    Uri uri = new Uri(payload[0].Content);
+                    if (uri.Scheme == 0)
+                        return;
+                    Process.Start(payload[0].Content);
+                }
+            }
+
+            Task.Run(() =>
+            {
+                Thread.Sleep(500);
+                DetectandLaunch();
+            });
+        }
+
+        private void configureTagForPlatform_Click(object sender, RoutedEventArgs e)
+        {
+            tappyDriver.ConfigurePlatform(ConfigSuccess, null, ErrorCallback);
+        }
+
+        private void ConfigSuccess(byte[] data)
+        {
+            List<byte> temp = new List<byte>(data);
+            Tag tag = new Tag(temp.GetRange(1, data.Length - 1).ToArray());
+            Debug.WriteLine("Here "+BitConverter.ToString(tag.UID));
+            string uid = BitConverter.ToString(tag.UID).Replace("-", "");
+            Process.Start(string.Format($"https://members.taptrack.com/x.php?tag_code={uid}"));
         }
     }
 }

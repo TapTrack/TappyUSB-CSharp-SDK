@@ -12,8 +12,6 @@ namespace TapTrack.TappyUSB.Ndef
             this.payload = new List<byte>();
         }
 
-        //protected abstract void SetContents(string content);
-
         public abstract string NdefType
         {
             get;

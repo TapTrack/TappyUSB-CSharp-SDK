@@ -46,9 +46,9 @@ namespace TapTrack.TappyUSB.Ndef
             return (flags & HeaderFlags.Id) == HeaderFlags.Id;
         }
 
-        public byte GetTnf()
+        public TypeNameField GetTnf()
         {
-            return (byte)((byte)flags & 0x07);
+            return (TypeNameField)((byte)flags & 0x07);
         }
     }
 }

@@ -61,7 +61,7 @@ namespace TapTrack.TappyUSB.Ndef
                 else
                     end = false;
 
-                header = new Header(begin, end, false, payload[i].IsShort(), false, payload[i].Tnf, payload[i].Length, payload[i].NdefType);
+                header = new Header(begin, end, false, payload[i].IsShort(), payload[i].Tnf, payload[i].Length, payload[i].NdefType);
 
                 msg.Add(new Record(header, payload[i]));
             }

@@ -13,16 +13,18 @@ namespace TapTrack.TappyUSB.Ndef
         int typeLen;
         int idLen;
         uint payLoadLen;
-        string id;
-        List<string> payloadEncoded;
+        byte[] id;
+        List<RecordData> payloadEncoded;
         List<string> type;
+        List<TypeNameField> tnf;
         FlagHeader flags;
 
         public NdefParser(byte[] data)
         {
             tokens = new Queue<byte>(data);
-            payloadEncoded = new List<string>();
+            payloadEncoded = new List<RecordData>();
             type = new List<string>();
+            tnf = new List<TypeNameField>();
             NdefMessage();
         }
 
@@ -34,6 +36,7 @@ namespace TapTrack.TappyUSB.Ndef
                 StringBuilder temp = new StringBuilder();
 
                 flags = new FlagHeader(Next());
+                tnf.Add(flags.GetTnf());
 
                 if (flags.GetMe())
                     run = false;
@@ -78,7 +81,7 @@ namespace TapTrack.TappyUSB.Ndef
             for (int i = 0; i < idLen; i++)
                 idBytes[i] = Next();
 
-            id = new string(Encoding.UTF8.GetChars(idBytes));
+            id = idBytes ;
         }
 
         private void Payload()
@@ -90,17 +93,18 @@ namespace TapTrack.TappyUSB.Ndef
             {
                 content[i] = Next();
             }
-                
 
             if (type.Last().Equals("U"))
                 parser = UriRecordPayload.Parse;
-            else
+            else if (type.Last().Equals("T"))
                 parser = TextRecordPayload.Parse;
+            else
+                parser = (byte[] data) => { return BitConverter.ToString(data); };
 
-            payloadEncoded.Add(parser(content));
+            payloadEncoded.Add(new RecordData(type.Last(), tnf.Last(), parser(content), id));
         }
 
-        public List<string> GetPayLoad()
+        public List<RecordData> GetPayLoad()
         {
             return payloadEncoded;
         }

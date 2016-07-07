@@ -142,5 +142,13 @@ namespace TapTrack.TappyUSB
 
             return 0x00;
         }
+
+        public override string ToString()
+        {
+            if (scheme != 0)
+                return STRING_LOOKUP[scheme] + path;
+            else
+                return path;
+        }
     }
 }

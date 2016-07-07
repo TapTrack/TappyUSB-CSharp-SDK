@@ -9,11 +9,24 @@ namespace TapTrack.TappyUSB.Ndef
 {
     public class TextRecordPayload : RecordPayload
     {
+        private string language;
+
         public TextRecordPayload(string language, string text) : base()
         {
-            this.payload.Add((byte)language.Length);
-            this.payload.AddRange(Encoding.UTF8.GetBytes(language));
+            this.language = language;
+            this.payload.Add((byte)Language.Length);
+            this.payload.AddRange(Encoding.UTF8.GetBytes(Language));
             this.payload.AddRange(Encoding.UTF8.GetBytes(text));
+
+            this.language = language;
+        }
+
+        public string Language
+        {
+            get
+            {
+                return language;
+            }
         }
 
         public static string Parse(byte[] data)

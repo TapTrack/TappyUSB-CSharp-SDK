@@ -79,7 +79,7 @@
                             <Setter Property="VerticalAlignment" Value="Top"/>
                         </Style>
                     </TabControl.Resources>
-                    <TabItem Style="{StaticResource DetectTagTab}">
+                    <TabItem Style="{StaticResource DetectNdefTab}">
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <StackPanel Background="{StaticResource DarkBackground}" Orientation="Vertical">
                                 <Label Margin="10,10,0,0" Padding="0,0,0,10" Foreground="White" Content="Content"/>
@@ -304,6 +304,20 @@
                         <StackPanel Background="{StaticResource DarkBackground}">
                             <Button HorizontalAlignment="Right" Style="{StaticResource RoundButton}" Click="LockButton_Click">
                                 Lock
+                            </Button>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Style="{StaticResource LaunchUrl}">
+                        <StackPanel Background="{StaticResource DarkBackground}">
+                            <Button HorizontalAlignment="Right" Style="{StaticResource RoundButton}" Click="launchUrlButton_Click">
+                                Launch
+                            </Button>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Style="{StaticResource PlatformConfig}">
+                        <StackPanel Background="{StaticResource DarkBackground}">
+                            <Button HorizontalAlignment="Right" Style="{StaticResource RoundButton}" Click="configureTagForPlatform_Click">
+                                Start writing
                             </Button>
                         </StackPanel>
                     </TabItem>

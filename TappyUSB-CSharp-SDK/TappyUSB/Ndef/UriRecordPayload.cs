@@ -26,7 +26,7 @@ namespace TapTrack.TappyUSB.Ndef
             }
             catch
             {
-                return Encoding.UTF8.GetString(data, 0, data.Length);
+                return Encoding.UTF8.GetString(data, 1, data.Length - 1);
             }
         }
 

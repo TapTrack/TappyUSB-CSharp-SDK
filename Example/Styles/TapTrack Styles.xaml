@@ -39,6 +39,10 @@
     <BitmapImage x:Key="Pending" UriSource="/Resources/pending.gif"/>
     <BitmapImage x:Key="Success" UriSource="/Resources/success.png"/>
     <BitmapImage x:Key="Error" UriSource="/Resources/error.png"/>
+    <BitmapImage x:Key="Ndef" UriSource="/Resources/ndef.png"/>
+    <BitmapImage x:Key="Ndef_highlight" UriSource="/Resources/ndef_highlight.png"/>
+    <BitmapImage x:Key="Platform" UriSource="/Resources/platform.png"/>
+    <BitmapImage x:Key="Platform_highlight" UriSource="/Resources/platform_highlight.png"/>
 
 
     <Style x:Key="TextBox" TargetType="{x:Type TextBox}">
@@ -179,6 +183,25 @@
         </Setter>
     </Style>
 
+    <Style x:Key="DetectNdefTab" TargetType="{x:Type TabItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid Name="Container" ToolTip="Read NDEF message" Background="White" Margin="10">
+                        <Image Width="30" Height="30" Stretch="Fill" Name="Pressed" Visibility="Hidden" Source="{StaticResource Ndef_highlight}"/>
+                        <Image Width="30" Height="30" Stretch="Fill" Name="Unpressed" Visibility="Visible" Source="{StaticResource Ndef}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="Container" Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Pressed" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="Unpressed" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="DetectTypeBTab" TargetType="{x:Type TabItem}">
         <Setter Property="Template">
             <Setter.Value>
@@ -284,6 +307,44 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger SourceName="Container" Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Pressed" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="Unpressed" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LaunchUrl" TargetType="{x:Type TabItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid Name="Container" ToolTip="Launch Url" Background="White" Margin="10">
+                        <Image Width="30" Height="30" Stretch="Fill" Name="Pressed" Visibility="Hidden" Source="{StaticResource URL_highlight}"/>
+                        <Image Width="30" Height="30" Stretch="Fill" Name="Unpressed" Visibility="Visible" Source="{StaticResource URL}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="Container"  Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Pressed" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="Unpressed" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PlatformConfig" TargetType="{x:Type TabItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid Name="Container" ToolTip="Configure a tag for use with the TapTrack platform" Background="White" Margin="10">
+                        <Image Width="30" Height="30" Stretch="Fill" Name="Pressed" Visibility="Hidden" Source="{StaticResource Platform_highlight}"/>
+                        <Image Width="30" Height="30" Stretch="Fill" Name="Unpressed" Visibility="Visible" Source="{StaticResource Platform}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="Container"  Property="IsMouseOver" Value="True">
                             <Setter TargetName="Pressed" Property="Visibility" Value="Visible"/>
                             <Setter TargetName="Unpressed" Property="Visibility" Value="Hidden"/>
                         </Trigger>

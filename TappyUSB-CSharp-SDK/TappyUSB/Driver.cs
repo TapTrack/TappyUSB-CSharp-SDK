@@ -22,7 +22,7 @@ namespace TapTrack.TappyUSB
     }
 
     /// <summary>
-    /// The type of content that can be written using <c></c>WriteContentToTag</c>
+    /// The type of content that can be written using <c>WriteContentToTag</c>
     /// </summary>
     public enum ContentType
     {
@@ -77,6 +77,7 @@ namespace TapTrack.TappyUSB
         /// </summary>
         private class CMD
         {
+            public const byte RESET = 0x00;
             public const byte ADD_CONTENT = 0x02;
             public const byte EMULATE = 0x03;
             public const byte READ_UID = 0x07;
@@ -91,6 +92,7 @@ namespace TapTrack.TappyUSB
             public const byte WRITE_VCARD = 0x80;
             public const byte LOCK_TAG = 0x13;
             public const byte WRITE_BLOCK = 0x28;
+            public const byte TURN_OFF_RF = 0x2E;
         }
 
         private List<byte> buffer;
@@ -210,6 +212,7 @@ namespace TapTrack.TappyUSB
                     catch (Exception exc)
                     {
                         Debug.WriteLine(exc.Message);
+                        Debug.WriteLine(exc.StackTrace);
                     }
                 }
             }
@@ -724,6 +727,26 @@ namespace TapTrack.TappyUSB
             payload.Add(0);
             payload.AddRange(data);
             Send(Frame.ConstructCommand(Driver.CMD.WRITE_BLOCK, payload.ToArray()), new CallbackSet(successHandler, ackHandler, errorHandler));
+        }
+
+        public void TurnOffRf(Callback ack)
+        {
+            Send(Frame.ConstructCommand(Driver.CMD.TURN_OFF_RF), new CallbackSet(null, ackHandler: ack));
+        }
+
+        public void ConfigurePlatform(Callback successHandler, Callback ackHandler, CallbackError errorHandler = null)
+        {
+            ReadUID(0, delegate(byte[] data){
+                Tag tag = new Tag(data);
+                string uid = BitConverter.ToString(tag.UID).Replace("-", "");
+                string url = $"https://members.taptrack.com/m?id={uid}";
+                WriteContentToTag(ContentType.Uri, url, false, successHandler, ackHandler, errorHandler);
+            });
+        }
+
+        private void Reset()
+        {
+            UnSafeSend(Frame.ConstructCommand(Driver.CMD.RESET));
         }
 
         private void UnSafeSend(byte[] frame)
