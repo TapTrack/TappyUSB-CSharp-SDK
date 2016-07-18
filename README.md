@@ -1,4 +1,8 @@
-## [Documentation/API reference](http://taptrack.github.io/TappyUSB-CSharp-SDK/)  
+## Warning
+New TappyUSBs will be using the TCMP protocol instead of the Classic protocl. As a result you should use the [TCMP CSharp SDK](https://github.com/TapTrack/Tcmp-CSharp-SDK). Contact TapTrack to confirm which protocol your TappyUSB is using.
+
+## Documentation
+- [API reference](http://taptrack.github.io/TappyUSB-CSharp-SDK/)
 
 ## Example Code
 - [Read Unique ID from a tag](http://taptrack.github.io/TappyUSB-CSharp-SDK/html/01c62086-fa9a-77f7-3f0f-4b133a52d240.htm)
