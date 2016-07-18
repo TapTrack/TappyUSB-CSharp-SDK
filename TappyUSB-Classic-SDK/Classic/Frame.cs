@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace TapTrack.TappyUSB
+namespace TapTrack.Classic
 {
     internal class Frame
     {

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO.Ports;
-using TapTrack.TappyUSB.Exceptions;
+using TapTrack.Classic.Exceptions;
 using System.Diagnostics;
 using System.Threading;
-using TapTrack.TappyUSB.Ndef;
+using TapTrack.Classic.Ndef;
 using System.Text;
 
-namespace TapTrack.TappyUSB
+namespace TapTrack.Classic
 {
     /// <summary>
     /// The different type of errors callbacks can receive
@@ -287,9 +287,9 @@ namespace TapTrack.TappyUSB
         /// Simple example of how to read a unique identifier from tag
         /// <code language="cs">
         /// using System;
-        /// using TapTrack.TappyUSB;
+        /// using TapTrack.Classic;
         /// 
-        /// namespace TapTrack.TappyUSB.Example
+        /// namespace TapTrack.Classic.Example
         /// {
         ///     class ReadUIDExample
         ///     { 
@@ -411,9 +411,9 @@ namespace TapTrack.TappyUSB
         ///     </para>
         ///     <code language="cs">
         ///         using System;
-        ///         using TapTrack.TappyUSB;
+        ///         using TapTrack.Classic;
         ///         
-        ///         namespace TapTrack.TappyUSB.Example
+        ///         namespace TapTrack.Classic.Example
         ///         {
         ///             class WriteTextExample
         ///             {
@@ -437,9 +437,9 @@ namespace TapTrack.TappyUSB
         ///     </para>
         ///     <code language="cs">
         ///         using System;
-        ///         using TapTrack.TappyUSB;
+        ///         using TapTrack.Classic;
         ///         
-        ///         namespace TapTrack.TappyUSB.Example
+        ///         namespace TapTrack.Classic.Example
         ///         {
         ///             class WriteUrlExample
         ///             {
@@ -567,9 +567,9 @@ namespace TapTrack.TappyUSB
         /// 
         /// <code language="cs">
         ///      using System;
-        ///      using TapTrack.TappyUSB.Ndef;
+        ///      using TapTrack.Classic.Ndef;
         ///      
-        ///      namespace TapTrack.TappyUSB.Example
+        ///      namespace TapTrack.Classic.Example
         ///      {
         ///          class WriteNdefExample
         ///          {
@@ -594,9 +594,9 @@ namespace TapTrack.TappyUSB
         /// <code language="cs">
         ///    using System;
         ///    using System.Collections.Generic;
-        ///    using TapTrack.TappyUSB.Ndef;
+        ///    using TapTrack.Classic.Ndef;
         ///    
-        ///    namespace TapTrack.TappyUSB.Example
+        ///    namespace TapTrack.Classic.Example
         ///    {
         ///        class WriteNdefExample
         ///        {

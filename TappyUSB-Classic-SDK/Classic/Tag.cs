@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TapTrack.TappyUSB
+namespace TapTrack.Classic
 {
     public class Tag
     {

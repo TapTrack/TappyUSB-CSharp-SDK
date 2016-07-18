@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TapTrack.TappyUSB.Ndef
+namespace TapTrack.Classic.Ndef
 {
     /// <summary>
     /// Helper class to construct NDEF messages to sent over the TappyUSB.

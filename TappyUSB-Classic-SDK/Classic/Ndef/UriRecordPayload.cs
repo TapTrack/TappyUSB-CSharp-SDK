@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TapTrack.TappyUSB.Ndef
+namespace TapTrack.Classic.Ndef
 {
     public class UriRecordPayload : RecordPayload
     {

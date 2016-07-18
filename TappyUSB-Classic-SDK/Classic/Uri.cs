@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TapTrack.TappyUSB
+namespace TapTrack.Classic
 {
     public class Uri
     {

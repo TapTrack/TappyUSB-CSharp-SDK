@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TapTrack.TappyUSB.Exceptions
+namespace TapTrack.Classic.Exceptions
 {
     class LcsException : Exception
     {

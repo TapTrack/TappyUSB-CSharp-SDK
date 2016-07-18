@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TapTrack.TappyUSB.Ndef
+namespace TapTrack.Classic.Ndef
 {
     class FlagHeader
     {

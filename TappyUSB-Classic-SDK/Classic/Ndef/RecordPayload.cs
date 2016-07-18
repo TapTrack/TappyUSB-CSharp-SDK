@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace TapTrack.TappyUSB.Ndef
+namespace TapTrack.Classic.Ndef
 {
     public abstract class RecordPayload
     {
