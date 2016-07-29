@@ -1,5 +1,5 @@
 ## Warning
-New TappyUSBs will be using the TCMP protocol instead of the Classic protocl. As a result you should use the [TCMP CSharp SDK](https://github.com/TapTrack/Tcmp-CSharp-SDK). Contact TapTrack to confirm which protocol your TappyUSB is using.
+Starting July 2016, TappyUSBs that are purchased will be using the TCMP protocol instead of the Classic protocol. As a result you should use the [TCMP CSharp SDK](https://github.com/TapTrack/Tcmp-CSharp-SDK). Contact TapTrack to confirm which protocol your TappyUSB is using.
 
 ## Documentation
 - [API reference](http://taptrack.github.io/TappyUSB-CSharp-SDK/)
