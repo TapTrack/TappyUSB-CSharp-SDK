@@ -53,12 +53,12 @@ namespace TapTrack.Classic
 
         public static readonly Dictionary<byte, string> STRING_LOOKUP = new Dictionary<byte, string>() {
             {0x01,"http://www."},
-            {0x02,"https://www"},
+            {0x02,"https://www."},
             {0x03,"http://"},
             {0x04,"https://"},
             {0x05,"tel:"},
             {0x06,"mailto:"},
-            {0x07,"ftp://anony"},
+            {0x07,"ftp://anonymous:anonymous@"},
             {0x08,"ftp://ftp."},
             {0x09,"ftps://"},
             {0x0A,"sftp://"},

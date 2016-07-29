@@ -737,7 +737,7 @@ namespace TapTrack.Classic
         public void ConfigurePlatform(Callback successHandler, Callback ackHandler, CallbackError errorHandler = null)
         {
             ReadUID(0, delegate(byte[] data){
-                Tag tag = new Tag(data);
+                NfcTag tag = NfcTag.FromReadUidResp(data);
                 string uid = BitConverter.ToString(tag.UID).Replace("-", "");
                 string url = $"https://members.taptrack.com/m?id={uid}";
                 WriteContentToTag(ContentType.Uri, url, false, successHandler, ackHandler, errorHandler);
